@@ -1,0 +1,17 @@
+:root {
+  --paper: #F7F4EE;
+  --paper-deep: #EEE8DE;
+  --ink: #22201D;
+  --ink-soft: #66615B;
+  --ink-faint: #8B857D;
+  --rule: #D8D2C8;
+  --rule-strong: #ACA59A;
+  --brand: #E94709;
+  --brand-deep: #9F3007;
+  --brand-wash: #F4DDD3;
+  --max-width: 1680px;
+  --gutter: clamp(1rem, 2.5vw, 3rem);
+  --font-display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}

@@ -1,0 +1,24 @@
+@media (prefers-reduced-motion: no-preference) {
+  .page-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .report-section:not(.is-revealed) .page-reveal,
+  .trajectory-section:not(.is-revealed) .trajectory-reveal { opacity: 0; transform: translateY(18px); }
+
+  .trajectory-section.is-revealed .trajectory-reveal { animation: page-enter .65s cubic-bezier(.2, .7, .2, 1) both; }
+  .trajectory-section.is-revealed .trajectory-reveal--heading { animation-delay: 0ms; }
+  .trajectory-section.is-revealed .trajectory-reveal--canvas { animation-delay: 120ms; }
+  .trajectory-section.is-revealed .trajectory-reveal--detail { animation-delay: 200ms; }
+  .trajectory-section.is-revealed .trajectory-reveal--node { animation-delay: var(--node-delay); }
+
+  @keyframes page-enter {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

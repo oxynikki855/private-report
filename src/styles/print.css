@@ -1,0 +1,12 @@
+@media print {
+  @page { margin: 11mm; size: A4 landscape; }
+  body { background: #fff; font-size: 11pt; }
+  .report-header, .section-nav, .reading-progress { display: none !important; }
+  .report-section { break-inside: avoid; page-break-inside: avoid; padding-block: 15mm !important; }
+  details { display: block; }
+  details > * { display: block !important; }
+  summary { list-style: none; }
+  .print-break-before { break-before: page; page-break-before: always; }
+  .metric-card, .case-frame, .decision-item { break-inside: avoid; page-break-inside: avoid; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

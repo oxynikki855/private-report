@@ -1,0 +1,30 @@
+.warehouse-first-page { margin-top: 1.7rem; }
+.warehouse-first-page .warehouse-flow { margin-top: 0; }
+.warehouse-issues { display: grid; grid-template-columns: .8fr 1.2fr; gap: 1.5rem; margin-top: 1.4rem; }
+.issue-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+.issue-list > div { display: grid; grid-template-columns: 2.1rem 1fr; gap: .65rem; min-height: 112px; padding: 1rem; background: var(--paper); }
+.issue-list span { color: var(--brand); font: .9rem var(--font-mono); }
+.issue-list p { margin: 0; color: var(--ink-soft); font-size: .88rem; line-height: 1.62; }
+.issue-list b { color: var(--ink); font-weight: 700; }
+.warehouse-model-page { margin-top: 1.55rem; }
+.uflp-model { display: grid; grid-template-columns: 1fr .95fr; gap: 1px; background: var(--rule); }
+.uflp-model > div { padding: 1.35rem 1.5rem; background: var(--paper-deep); }
+.uflp-model span, .model-contrast span, .complexity-strip b, .tool-responsibilities span { color: var(--brand-deep); font: .93rem var(--font-mono); letter-spacing: .07em; }
+.uflp-model h4 { margin: .7rem 0; font: 600 1.35rem/1.3 var(--font-display); }
+.uflp-model p { margin: 0; color: var(--ink-soft); font-size: .9rem; line-height: 1.65; }
+.uflp-formula { background: var(--paper) !important; }
+.uflp-formula strong { display: block; margin: .9rem 0; color: var(--ink); font: 600 1.35rem/1.4 var(--font-mono); letter-spacing: -.04em; }
+.model-contrast { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1px; background: var(--rule); }
+.model-contrast > div { padding: 1.1rem 1.25rem; background: var(--paper); }
+.model-contrast p { margin: .6rem 0 0; color: var(--ink-soft); font-size: .86rem; line-height: 1.62; }
+.complexity-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--rule); }
+.complexity-strip p { margin: .55rem 0 0; color: var(--ink-soft); font-size: .86rem; line-height: 1.62; }
+.warehouse-tool-page { display: grid; grid-template-columns: .82fr 1.18fr; gap: 2rem; align-items: stretch; margin-top: 1.7rem; }
+.tool-responsibilities { display: grid; align-content: start; border-top: 1px solid var(--ink); }
+.tool-responsibilities > div { padding: 1.25rem 0; border-bottom: 1px solid var(--rule); }
+.tool-responsibilities h4 { margin: .5rem 0; font: 600 1.28rem/1.35 var(--font-display); }
+.tool-responsibilities p { margin: 0; color: var(--ink-soft); font-size: .88rem; line-height: 1.65; }
+.warehouse-tool-shot { position: relative; align-self: stretch; min-height: 0; margin: 0; overflow: hidden; background: transparent; }
+.warehouse-tool-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.warehouse-tool-shot figcaption { display: none; }
+@media (max-width: 800px) { .warehouse-issues, .uflp-model, .model-contrast, .complexity-strip, .warehouse-tool-page { grid-template-columns: 1fr; } .issue-list { grid-template-columns: 1fr; } .warehouse-tool-shot img { height: auto; } }
