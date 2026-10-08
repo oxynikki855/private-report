@@ -28,7 +28,7 @@ export function AnnualTrajectorySection() {
   const resetFocus = () => setSelected(null)
 
   return <section ref={ref} id="trajectory" className={`trajectory-section ${isVisible ? 'is-revealed' : ''}`}>
-    <div className="trajectory-heading trajectory-reveal trajectory-reveal--heading"><p className="eyebrow">Year in trajectory / 01</p><h2>这一年，沿着一条不断折返、逐渐聚焦的轨迹前行。</h2></div>
+    <div className="trajectory-heading trajectory-reveal trajectory-reveal--heading"><p className="eyebrow">Year in trajectory / 01</p><h2>年度轨迹</h2></div>
     <div className="trajectory-layout">
       <div className="trajectory-canvas trajectory-reveal trajectory-reveal--canvas" aria-label="年度成长轨迹，点击节点查看具体说明">
         <svg className="trajectory-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">

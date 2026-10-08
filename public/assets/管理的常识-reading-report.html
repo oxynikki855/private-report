@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《管理的常识》深度阅读报告</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c-primary: #d35400;
+  --c-accent: #fdcb6e;
+  --c-bg: #fef9f3;
+  --c-bg-end: #fdebd3;
+  --c-sidebar-start: #2d1b00;
+  --c-sidebar-end: #e17055;
+  --c-card: rgba(255,255,255,0.72);
+  --c-card-border: rgba(211,84,0,0.08);
+  --c-text: #2d1b00;
+  --c-text-muted: #8a6d5c;
+  --c-accent-rgb: 253,203,110;
+  --c-primary-rgb: 211,84,0;
+  --font-display: 'Sora', 'Noto Sans SC', sans-serif;
+  --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  font-family: var(--font-body);
+  color: var(--c-text);
+  background: linear-gradient(135deg, var(--c-bg) 0%, var(--c-bg-end) 100%);
+  line-height: 1.8;
+  font-size: 15px;
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 20%, rgba(var(--c-accent-rgb),0.18), transparent),
+    radial-gradient(ellipse 50% 50% at 90% 80%, rgba(var(--c-primary-rgb),0.12), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(254,249,243,0.82);
+  border-bottom: 1px solid var(--c-card-border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav.top-nav::-webkit-scrollbar { display:none; }
+nav.top-nav.scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+nav.top-nav a {
+  text-decoration: none;
+  color: var(--c-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all .2s;
+  font-family: var(--font-display);
+}
+nav.top-nav a:hover { background: rgba(var(--c-primary-rgb),0.08); color: var(--c-primary); }
+
+.content-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* HERO */
+.hero {
+  padding: 64px 0 48px;
+  text-align: center;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.hero .subtitle {
+  font-size: 16px;
+  color: var(--c-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero .meta {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--c-text-muted);
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hero .meta span {
+  background: rgba(var(--c-primary-rgb),0.08);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* SECTIONS */
+section { margin-bottom: 48px; }
+section h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--c-accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+section h2 .icon { font-size: 28px; }
+section h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin: 28px 0 12px;
+  padding-left: 14px;
+  border-left: 3px solid var(--c-accent);
+}
+section p, section li {
+  color: var(--c-text);
+  line-height: 1.9;
+  margin-bottom: 10px;
+}
+section ul, section ol { padding-left: 20px; margin-bottom: 16px; }
+section li { margin-bottom: 6px; }
+
+.prose { max-width: 780px; }
+
+/* LEAD */
+.lead {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 20px;
+  border-left: 4px solid var(--c-primary);
+  background: rgba(var(--c-primary-rgb),0.04);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 20px;
+  color: var(--c-primary);
+}
+
+/* BLOCKQUOTE */
+blockquote {
+  margin: 20px 0;
+  padding: 20px 24px;
+  background: rgba(var(--c-accent-rgb),0.12);
+  border-radius: 8px;
+  border-left: 4px solid var(--c-accent);
+  font-style: italic;
+  position: relative;
+}
+blockquote::before { content: '"'; font-size: 48px; color: var(--c-accent); position: absolute; top: 4px; left: 12px; opacity: 0.5; }
+blockquote p { margin-bottom: 4px; }
+cite { display: block; font-size: 13px; color: var(--c-text-muted); margin-top: 8px; font-style: normal; }
+
+/* CALLOUTS */
+.callout {
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.callout .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.callout { background: rgba(var(--c-accent-rgb),0.15); border: 1px solid rgba(var(--c-accent-rgb),0.3); }
+.callout-info { background: rgba(108,92,231,0.08); border: 1px solid rgba(108,92,231,0.2); }
+.callout-danger { background: rgba(231,76,60,0.08); border: 1px solid rgba(231,76,60,0.2); }
+
+/* CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.card {
+  background: var(--c-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--c-card-border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.1); }
+.card h4 { font-size: 15px; font-weight: 600; color: var(--c-primary); margin-bottom: 8px; }
+.card p { font-size: 14px; color: var(--c-text-muted); margin-bottom: 0; }
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  background: var(--c-card);
+  backdrop-filter: blur(12px);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+}
+thead { background: rgba(var(--c-primary-rgb),0.08); }
+th, td { padding: 12px 16px; text-align: left; font-size: 14px; border-bottom: 1px solid var(--c-card-border); }
+th { font-weight: 600; color: var(--c-primary); font-family: var(--font-display); }
+tr:hover td { background: rgba(var(--c-accent-rgb),0.06); }
+.highlight td { background: rgba(var(--c-accent-rgb),0.12); font-weight: 500; }
+
+/* TAG */
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(var(--c-primary-rgb),0.1);
+  color: var(--c-primary);
+  margin-right: 4px;
+}
+
+/* CONCLUSION */
+.conclusion {
+  background: linear-gradient(135deg, var(--c-primary), #e67e22);
+  color: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: 0 8px 32px rgba(var(--c-primary-rgb),0.3);
+}
+.conclusion h2 { color: #fff; border-bottom-color: rgba(255,255,255,0.3); }
+.conclusion p, .conclusion li { color: rgba(255,255,255,0.92); }
+.conclusion ul { padding-left: 20px; }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--c-text-muted);
+  font-size: 13px;
+  border-top: 1px solid var(--c-card-border);
+  margin-top: 48px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(24px); }
+  to { opacity:1; transform:translateY(0); }
+}
+section { animation: fadeInUp 0.5s ease both; }
+section:nth-child(1) { animation-delay: 0.07s; }
+section:nth-child(2) { animation-delay: 0.14s; }
+section:nth-child(3) { animation-delay: 0.21s; }
+section:nth-child(4) { animation-delay: 0.28s; }
+section:nth-child(5) { animation-delay: 0.35s; }
+section:nth-child(6) { animation-delay: 0.42s; }
+section:nth-child(7) { animation-delay: 0.49s; }
+section:nth-child(8) { animation-delay: 0.56s; }
+section:nth-child(9) { animation-delay: 0.63s; }
+section:nth-child(10) { animation-delay: 0.70s; }
+section:nth-child(11) { animation-delay: 0.77s; }
+section:nth-child(12) { animation-delay: 0.84s; }
+
+/* FAB */
+.fab-toc {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(var(--c-primary-rgb),0.4);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s;
+}
+.fab-toc:hover { transform: scale(1.1); }
+.fab-toc.active { border-radius: 12px; width: auto; padding: 0 16px; font-size: 14px; gap: 6px; }
+
+.toc-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 200;
+  width: 300px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--c-card);
+  backdrop-filter: blur(16px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  border: 1px solid var(--c-card-border);
+  padding: 16px;
+  display: none;
+  font-size: 13px;
+}
+.toc-panel.show { display: block; }
+.toc-panel h4 { font-size: 14px; font-weight: 600; color: var(--c-primary); margin-bottom: 10px; }
+.toc-panel a {
+  display: block;
+  text-decoration: none;
+  color: var(--c-text);
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background .15s;
+  line-height: 1.4;
+}
+.toc-panel a:hover { background: rgba(var(--c-primary-rgb),0.08); }
+.toc-panel a.sub { padding-left: 24px; color: var(--c-text-muted); font-size: 12px; }
+.toc-panel .sec { font-weight: 600; color: var(--c-primary); margin-top: 8px; }
+.toc-panel .sec:first-child { margin-top: 0; }
+
+@media (max-width: 768px) {
+  .content-wrap { padding: 0 16px; }
+  .hero h1 { font-size: 24px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .toc-panel { width: calc(100vw - 48px); right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav" id="topNav">
+  <a href="#overview">概览</a>
+  <a href="#ch1">管理</a>
+  <a href="#ch2">组织</a>
+  <a href="#ch3">结构</a>
+  <a href="#ch4">领导</a>
+  <a href="#ch5">激励</a>
+  <a href="#ch6">决策</a>
+  <a href="#ch7">计划</a>
+  <a href="#ch8">控制</a>
+  <a href="#conclusion">总结</a>
+</nav>
+
+<div class="content-wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>《管理的常识》</h1>
+  <p class="subtitle">让管理发挥绩效的 8 个基本概念 · 深度阅读报告</p>
+  <div class="meta">
+    <span>📖 陈春花 著</span>
+    <span>🏢 机械工业出版社</span>
+    <span>📅 2026-05-26 整理</span>
+    <span>🌸 由小茉整理</span>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <h2><span class="icon">📋</span> 全书概览</h2>
+  <div class="lead">
+    管理不是"管人理事"，而是确保人与物结合后做出最有效的事。本书围绕 8 个最基本、最常被误解的管理概念展开，逐一澄清管理常识。
+  </div>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>01 · 什么是管理</h4>
+      <p>管理是"管事"而非"管人"；只对绩效负责；让下属明白什么是最重要的。</p>
+    </div>
+    <div class="card">
+      <h4>02 · 什么是组织</h4>
+      <p>公司不是一个家；人与人公平而非平等；组织因目标而存在，内为奉献关系。</p>
+    </div>
+    <div class="card">
+      <h4>03 · 什么是组织结构</h4>
+      <p>解决权力与责任匹配的问题；自我约定的关系；六大结构类型各有优劣。</p>
+    </div>
+    <div class="card">
+      <h4>04 · 什么是领导</h4>
+      <p>领导是管理职能而非职位；权力+魅力构成影响力；应适应风格而非改变。</p>
+    </div>
+    <div class="card">
+      <h4>05 · 什么是激励</h4>
+      <p>涨工资不带来满足感；保健因素与激励因素区分；金钱非常重要。</p>
+    </div>
+    <div class="card">
+      <h4>06 · 什么是决策</h4>
+      <p>决策为执行而非正确；集体决策个人负责；快速有效决策的五种方法。</p>
+    </div>
+    <div class="card">
+      <h4>07 · 什么是计划</h4>
+      <p>目标是预测（一定不合理），行动须合理；计划管理解决目标与资源匹配。</p>
+    </div>
+    <div class="card">
+      <h4>08 · 什么是控制</h4>
+      <p>立标→监察→核对→修正；标准化、量化、全过程化；四个习惯改变。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CH1: 管理 -->
+<section id="ch1">
+  <h2><span class="icon">🎯</span> 第1章 · 什么是管理</h2>
+  <div class="lead">管理不谈对错，只是面对事实，解决问题。管理是"管事"而不是"管人"。</div>
+
+  <h3>管理的核心理解</h3>
+  <p>管理实际上是人、物、事三者的辩证关系，不同的组合就会得到不同的结果。管理的目的是确保人与物结合后能够做出最有效的事来。</p>
+
+  <blockquote>
+    <p>管理是一种实践，其本质不在于知，而在于行；其验证不在于逻辑，而在于成果；其唯一的权威性就是成就。</p>
+    <cite>—— 彼得·德鲁克</cite>
+  </blockquote>
+
+  <h3>管理的五大常识</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>① 让下属明白什么是最重要的</h4>
+      <p>评价下属不要用"悟性""领会""揣摩"这些模糊词汇。每一层管理者应确定下一层级所要明确做的事情。上下级对岗位重要事情界定一致 = 管理良性。</p>
+    </div>
+    <div class="card">
+      <h4>② 不谈对错，面对事实</h4>
+      <p>管理上的对错没有意义，关键是要解决问题。现场发生问题，正确答案是"面对事实，解决问题"，而非分析原因和追责。管理需不断面对新问题。</p>
+    </div>
+    <div class="card">
+      <h4>③ 是"管事"不是"管人"</h4>
+      <p>中国管理一直处在"人治"状态。日本"5S"现场管理、海尔"星级服务"都是从"管事"出发——界定该做的事和标准，而非靠人的自觉。人无法管理，只能管事。</p>
+    </div>
+    <div class="card">
+      <h4>④ 个人目标与组织目标合二为一</h4>
+      <p>衡量管理水平的唯一标准。忠诚的衡量是员工对组织目标的贡献而非其他。不能靠无价的情感来弥补有价资源的有限。</p>
+    </div>
+    <div class="card">
+      <h4>⑤ 让一线员工得到并可以使用资源</h4>
+      <p>管理的关键资源是人力资源和财力资源。越上层离顾客越远，一线反而没有资源。管理应让一线员工有权使用资源满足顾客需要。</p>
+    </div>
+  </div>
+
+  <h3>管理的三重观</h3>
+  <table>
+    <thead><tr><th>观点</th><th>核心含义</th><th>常见误区</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">只对绩效负责</span></td><td>功劳产生绩效，苦劳不产生；能力产生绩效，态度须转化为能力；才干产生绩效，品德须转化为才干。</td><td>以苦为乐、重态度轻能力、招聘时轻才干重学历</td></tr>
+      <tr><td><span class="tag">是一种分配</span></td><td>分配权力、责任和利益，三者成等边三角形。基于责任做分配，配上合适的资源。</td><td>把权力和利益留下，把责任分出去</td></tr>
+      <tr><td><span class="tag">始终为经营服务</span></td><td>经营 = 选正确的事做；管理 = 把事做正确。管理不能超越经营水平。</td><td>薄利多销的企业做流程再造（管理水平超越经营水平）</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-danger">
+    <span class="icon">🚨</span>
+    <div><strong>品德 vs 才干的正确用法：</strong>招聘和提拔时必须先看品德；日常考核和管理中应更关注才干。中国企业恰好做反了。</div>
+  </div>
+
+  <h3>向上管理</h3>
+  <p>管理的对象其实只有一个人——你的直接上司。因为资源分配权在上司手上。向上管理包含五个要素：</p>
+  <ul>
+    <li><strong>和谐的工作方式</strong>：采用双方接受的形式处理问题</li>
+    <li><strong>相互期盼</strong>：不断提升期望来提升各自能力</li>
+    <li><strong>信息流动</strong>：不借助第三者，不保留信息</li>
+    <li><strong>诚实与可靠</strong>：永远不让上司觉得难堪，事前保护他</li>
+    <li><strong>合理利用时间与资源</strong>：上司的时间和资源就是你要争取的内容</li>
+  </ul>
+
+  <div class="callout callout-info">
+    <span class="icon">💡</span>
+    <div><strong>授权的关键：</strong>目标设定不做授权。资源运用、方法选择、实现手段都可授权，唯独目标设定的权力不能授出。授权最大的好处是培养人。</div>
+  </div>
+</section>
+
+<!-- CH2: 组织 -->
+<section id="ch2">
+  <h2><span class="icon">🏢</span> 第2章 · 什么是组织</h2>
+  <div class="lead">组织的存在是为了实现目标，组织管理的存在是为了提升效率。组织因目标而存在。</div>
+
+  <h3>对组织的正确理解</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>① 公司不是一个家</h4>
+      <p>正式组织用权力、责任和目标联结人群，非正式组织用情感联结。管理概念下谈的是正式组织。在家里讲情感，在企业讲责任和价值创造。</p>
+    </div>
+    <div class="card">
+      <h4>② 同一件事同一组人承担</h4>
+      <p>同一个权力、责任和目标必须由同一组人承担。"组织虚设"是最可怕的事——两件事两组人做、两部门职能重叠，导致责任无法界定。</p>
+    </div>
+    <div class="card">
+      <h4>③ 人与人公平而非平等</h4>
+      <p>在组织中，人与人之间以目标为前提，承担不同责任获得不同权力。强调服从而不是平等。军队是最好的例子：各色人等融入组织实现目标。</p>
+    </div>
+    <div class="card">
+      <h4>④ 分工是根本联结方法</h4>
+      <p>组织能力来源于分工带来的协作。组织分工主要是分配责任和权力，让每个负有责任的人拥有相应的权力。制度本身是成本，好公司靠有机组织+活力文化+有效分配。</p>
+    </div>
+  </div>
+
+  <h3>组织内是奉献关系</h3>
+  <p>组织内人与人之间是<strong>奉献关系</strong>，不是管理和被管理关系，甚至也不是"合作"关系。不懂主动贡献的人，能力再强也是团队进步的阻力。</p>
+
+  <blockquote>
+    <p>一个好的组织里的每一个成员的第一要件是：主动关心别人的需求。</p>
+    <cite>—— 陈春花</cite>
+  </blockquote>
+
+  <h3>混沌世界中的组织</h3>
+  <p>今天商业世界已不再稳定。组织管理需关注四个层面：</p>
+  <ol>
+    <li><strong>混沌思维方式</strong>：不只关注计划与结果的吻合，更关心如何找到超乎寻常的结果</li>
+    <li><strong>构建弹性能力</strong>：不借助外力，自己加压、自我超越</li>
+    <li><strong>打破内部均衡</strong>：不能默许没有能力的人在岗，不能追求"一团和气"</li>
+    <li><strong>实现组织学习</strong>：解决组织存在问题的本身，而非对后果做出反应</li>
+  </ol>
+</section>
+
+<!-- CH3: 组织结构 -->
+<section id="ch3">
+  <h2><span class="icon">🔧</span> 第3章 · 什么是组织结构</h2>
+  <div class="lead">组织结构就是让权力和责任的关系匹配。组织结构是自我约定的关系。</div>
+
+  <h3>结构设计的古典原则</h3>
+  <table>
+    <thead><tr><th>原则</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr class="highlight"><td><strong>指挥统一</strong></td><td>一个人只能有一个直接上司</td></tr>
+      <tr><td><strong>控制幅度</strong></td><td>每人管理跨度有限，一般 5-6 人；基层大、高层小</td></tr>
+      <tr><td><strong>分工</strong></td><td>纵向=经营分工（职权线），横向=职能线（资源线）</td></tr>
+      <tr><td><strong>部门化</strong></td><td>做同一件事的人放在一个部门，由一个经理协调</td></tr>
+    </tbody>
+  </table>
+
+  <h3>六种组织结构类型</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>职能型</h4>
+      <p><strong>优点：</strong>规模经济，减少资源重复<br><strong>缺点：</strong>追求职能目标忽略全局<br><strong>适用：</strong>企业成长阶段</p>
+    </div>
+    <div class="card">
+      <h4>事业部制</h4>
+      <p><strong>优点：</strong>强调结果，总部专注战略<br><strong>缺点：</strong>活动和资源重复配置<br><strong>适用：</strong>多产品、跨区域、多产业</p>
+    </div>
+    <div class="card">
+      <h4>扁平化</h4>
+      <p><strong>优点：</strong>反应快、灵活、成本低<br><strong>缺点：</strong>只宜小型组织，风险大<br><strong>前提：</strong>文化好+信息系统完善</p>
+    </div>
+    <div class="card">
+      <h4>矩阵式</h4>
+      <p><strong>优点：</strong>协调复杂独立项目+经济性<br><strong>缺点：</strong>造成混乱，权力斗争<br><strong>方案：</strong>计划管理+双向考核</p>
+    </div>
+    <div class="card">
+      <h4>网络结构</h4>
+      <p><strong>优点：</strong>适应变化，集中核心能力<br><strong>缺点：</strong>缺乏控制力，质量难预料<br><strong>方案：</strong>品牌管理+核心经理人团队</p>
+    </div>
+    <div class="card">
+      <h4>直线型</h4>
+      <p><strong>优点：</strong>决策集中、效率最高、成本可控<br><strong>缺点：</strong>高度集权、风险集中<br><strong>适用：</strong>创业阶段</p>
+    </div>
+  </div>
+
+  <h3>企业发展四阶段与组织匹配</h3>
+  <table>
+    <thead><tr><th>阶段</th><th>组织形式</th><th>特点</th><th>关键</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">创业</span></td><td>直线型</td><td>所有权经营权合一，集权</td><td>控制成本、确保质量</td></tr>
+      <tr><td><span class="tag">成长</span></td><td>职能型</td><td>专业人士引入，部分授权</td><td>发挥资源有效性</td></tr>
+      <tr><td><span class="tag">发展</span></td><td>事业部制</td><td>职业经理人引入，两权分离</td><td>调动积极性，引领行业</td></tr>
+      <tr><td><span class="tag">持续</span></td><td>董事会制</td><td>领导团队打造，谨慎决策</td><td>分享结构，文化认同</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <span class="icon">📌</span>
+    <div><strong>结构特殊效能：</strong>组织结构可同时获得满足感和工作绩效。七个层面——职权阶层、直线与幕僚区分、部门划分、授权与分权、形式化程度、控制幅度、专业化。</div>
+  </div>
+</section>
+
+<!-- CH4: 领导 -->
+<section id="ch4">
+  <h2><span class="icon">👑</span> 第4章 · 什么是领导</h2>
+  <div class="lead">领导是管理职能而非领导者。任何人都可以发挥领导职能，只要他具有影响力。</div>
+
+  <h3>影响力的构成</h3>
+  <p>影响力 = <strong>权力</strong> + <strong>个人魅力</strong></p>
+
+  <h3>权力的五个角度</h3>
+  <table>
+    <thead><tr><th>权力类型</th><th>说明</th><th>使用建议</th></tr></thead>
+    <tbody>
+      <tr class="highlight"><td><strong>法定权</strong></td><td>制度/结构安排的权力</td><td>✅ 多使用</td></tr>
+      <tr class="highlight"><td><strong>专家权</strong></td><td>借助专家影响力（权力在领导者手而非专家）</td><td>✅ 多使用</td></tr>
+      <tr class="highlight"><td><strong>奖赏权</strong></td><td>肯定和赞赏的影响力</td><td>✅ 多使用，职位越高越该多用</td></tr>
+      <tr><td><strong>惩罚权</strong></td><td>惩罚产生的影响力</td><td>⚠️ 少用，一旦用必须杀一儆百</td></tr>
+      <tr><td><strong>统治权</strong></td><td>与惩罚权相似</td><td>⚠️ 少用，一旦用必须严格有效</td></tr>
+    </tbody>
+  </table>
+
+  <h3>魅力的五大要素</h3>
+  <ol>
+    <li><strong>外貌</strong>：关注公众评价，整理仪表给人认真整齐的印象</li>
+    <li><strong>类似性</strong>：与群体保持一致而非与众不同。融入群体才能获得认同</li>
+    <li><strong>好感回报</strong>：先付出，人们会回报你、追随你</li>
+    <li><strong>知识</strong>：专业知识能变成生活知识</li>
+    <li><strong>能力</strong>：认同力+网络力+办事力。做能做之事，十件事八件成比十件都亲力亲为强</li>
+  </ol>
+
+  <h3>领导者 vs 管理者</h3>
+  <table>
+    <thead><tr><th>维度</th><th>领导者</th><th>管理者</th></tr></thead>
+    <tbody>
+      <tr><td>核心责任</td><td>确保组织成长、明确方向</td><td>对绩效负责</td></tr>
+      <tr><td>关注点</td><td>未来、变化、方向</td><td>当前、稳定、执行</td></tr>
+      <tr><td>权力来源</td><td>个人影响力，不一定有正式职称</td><td>正式职称与职权</td></tr>
+      <tr><td>工作方式</td><td>使用个人影响力影响他人</td><td>照章行事，制度规范</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-danger">
+    <span class="icon">🚨</span>
+    <div><strong>中国管理的大问题：</strong>领导者关注绩效和当前，管理者关注成长和未来——刚好反了。中层总谈公司战略变革，很少谈制度执行和解决方案。管理不需要换位思考，而是做好本职。</div>
+  </div>
+
+  <h3>赫-布理论：没有不好的士兵，只有不好的将军</h3>
+  <p>根据员工任务成熟度选择领导风格：</p>
+  <table>
+    <thead><tr><th>员工类型</th><th>特征</th><th>领导风格</th></tr></thead>
+    <tbody>
+      <tr><td>有心有力</td><td>有能力且热爱企业</td><td>授权型</td></tr>
+      <tr><td>有心无力</td><td>热爱公司但能力不足</td><td>参与型</td></tr>
+      <tr><td>无心有力</td><td>不热爱公司但有能力</td><td>推销型（沟通理念和战略）</td></tr>
+      <tr><td>无心无力</td><td>新员工或丧失激情的老员工</td><td>传帮带结合，跟踪细节</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-info">
+    <span class="icon">💡</span>
+    <div><strong>途径-目标理论：</strong>领导风格不重要，重要的是找到合适的途径让员工实现目标。管理者的核心任务是：识别员工个人目标 → 清除实现障碍 → 建立薪酬体系使个人目标与组织绩效挂钩。</div>
+  </div>
+</section>
+
+<!-- CH5: 激励 -->
+<section id="ch5">
+  <h2><span class="icon">⚡</span> 第5章 · 什么是激励</h2>
+  <div class="lead">涨工资并不会带来满足感，只会降低不满。激励是让人们自己做出选择并愿意付出。</div>
+
+  <h3>人为什么工作（五大理由）</h3>
+  <div class="cards-grid">
+    <div class="card"><h4>① 赚钱</h4><p>最直接的原因。很多人仅因为少量钱的调整就出现职业变动。</p></div>
+    <div class="card"><h4>② 消耗能量</h4><p>人的生理需求。工作量不足导致内耗，超量导致人才流失。</p></div>
+    <div class="card"><h4>③ 社会交往</h4><p>通过职业接触社会、拥有信息。大企业因广泛交往平台更具吸引力。</p></div>
+    <div class="card"><h4>④ 成就感</h4><p>只有工作才能真正获得成就感。成就感在工作成果中体现。</p></div>
+    <div class="card"><h4>⑤ 社会地位</h4><p>只有被社会认可的人才能获得社会地位。</p></div>
+  </div>
+
+  <h3>双因素理论</h3>
+  <table>
+    <thead><tr><th></th><th>保健因素</th><th>激励因素</th></tr></thead>
+    <tbody>
+      <tr><td><strong>内容</strong></td><td>工资、岗位、福利、工作设备</td><td>晋升、奖金、价值肯定、额外条件</td></tr>
+      <tr><td><strong>缺乏时</strong></td><td>人们不满</td><td>满足感低，但不不满</td></tr>
+      <tr><td><strong>存在时</strong></td><td>不满降低，但<b>不带来满足感</b></td><td>带来满足感</td></tr>
+      <tr><td><strong>使用原则</strong></td><td>绝大部分人得到</td><td>确保少数人获得</td></tr>
+      <tr><td><strong>变化规则</strong></td><td>只能升不能降</td><td>必须可变动，固定后降为保健因素</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>
+    <p>涨工资不会带来激励效用，因为工资是保健因素。涨工资只会让不满降低，但不会带来满足感。</p>
+    <cite>—— 赫茨伯格双因素理论</cite>
+  </blockquote>
+
+  <h3>需求层次理论</h3>
+  <p><strong>马斯洛五层次</strong>（生理→安全→交往→尊重→自我实现）：最低层次的未被满足的需求最有影响力。已满足的需求不再有激励效果。</p>
+  <p><strong>奥得佛 ERG 理论</strong>（生存→联系→成长）：多种需求同时存在。当成长需求受挫，会回归到联系/生存需求。不流动若因生存需求满足，对组织有害。</p>
+  <p><strong>麦克利兰成就激励</strong>：不要满足需求而是引导需求。选择成就动机高的员工，激发内在成就欲望。</p>
+
+  <h3>公平理论</h3>
+  <p>不公平是绝对的，公平是相对的——<strong>公平是一种感觉</strong>。公平感来源于比较付出而非获得。奖励时要彰显获得奖励者的付出过程，而非只公布结果。</p>
+
+  <div class="callout callout-info">
+    <span class="icon">💡</span>
+    <div><strong>有效激励措施的三特征：</strong>重要性 + 可见度 + 公平感。金钱因重要性和可见度都足够，所以<strong>在激励上金钱非常重要</strong>——不是"相当重要"或"重要"，是"非常重要"。</div>
+  </div>
+
+  <h3>成本最低的四种激励措施</h3>
+  <div class="cards-grid">
+    <div class="card"><h4>👏 鼓掌</h4><p>超过九下，长时间、热烈，必要时起立。三四下没有感觉。</p></div>
+    <div class="card"><h4>💬 赞美</h4><p>上司亲自、立即、当众表扬效果最好。一句肯定的话带来的激励不可估量。</p></div>
+    <div class="card"><h4>💐 鲜花</h4><p>象征意义丰富，可见度高。每一束鲜花都让被赠予者感受到肯定和期望。</p></div>
+    <div class="card"><h4>🎊 隆重的仪式</h4><p>隆重≠豪华，用心赋予价值。如入职仪式发刻有名字的杯子，印象深刻。</p></div>
+  </div>
+
+  <div class="callout">
+    <span class="icon">📌</span>
+    <div><strong>激励不发挥作用的三种情况：</strong>① 工作超量造成疲惫 ② 角色不清、任务冲突 ③ 不公平待遇。这三种情况下不要从激励角度努力，而是切实改变工作状态。</div>
+  </div>
+</section>
+
+<!-- CH6: 决策 -->
+<section id="ch6">
+  <h2><span class="icon">⚖️</span> 第6章 · 什么是决策</h2>
+  <div class="lead">决策的目的是为了执行。集体决策，个人负责，而非个人决策，集体负责。</div>
+
+  <h3>决策的核心认知</h3>
+  <ul>
+    <li><strong>决策不是追求正确性</strong>，而是确保执行。决策的正确性指的是执行的结果。</li>
+    <li><strong>执行者从步骤1开始就要参与</strong>——从"识别问题"到"选择方案"的全过程。</li>
+    <li><strong>首先判断能不能找到人去做</strong>，而非判断这件事要不要做。</li>
+  </ul>
+
+  <h3>理性决策八步骤</h3>
+  <table>
+    <thead><tr><th>步骤</th><th>内容</th><th>关键要点</th></tr></thead>
+    <tbody>
+      <tr class="highlight"><td>1</td><td>识别问题</td><td>依据理想与现实之间的距离。不要请专家做决策</td></tr>
+      <tr><td>2</td><td>确定标准</td><td>什么因素与决策相关，是否可观察、可测量</td></tr>
+      <tr><td>3</td><td>分配权重</td><td>判断各标准的重要性，资源分配到重要的地方</td></tr>
+      <tr><td>4</td><td>拟订方案</td><td>越多越好，不要提前制约</td></tr>
+      <tr><td>5</td><td>分析方案</td><td>着重于建议而非人；考量社会愿望因素</td></tr>
+      <tr class="highlight"><td>6</td><td>选择方案</td><td>是否受权力影响？是否妥协结果？</td></tr>
+      <tr><td>7</td><td>执行方案</td><td>关注执行者接受程度和资源限制</td></tr>
+      <tr><td>8</td><td>评价方案</td><td>控制过程，检验后果，改善推进</td></tr>
+    </tbody>
+  </table>
+
+  <h3>快速决策的五种方法</h3>
+  <p>根据<strong>决策方案品质</strong>与<strong>成员接受程度</strong>的相对重要性来选择：</p>
+  <table>
+    <thead><tr><th>方法</th><th>品质</th><th>接受程度</th><th>适用场景</th></tr></thead>
+    <tbody>
+      <tr><td><strong>武断式</strong></td><td>高</td><td>低</td><td>上司利用已有资料独立决策（如产品定价）</td></tr>
+      <tr><td><strong>方便式</strong></td><td>低</td><td>低</td><td>手头最方便的方法（如选哪家酒店办年会）</td></tr>
+      <tr><td><strong>咨询式</strong></td><td>高</td><td>高</td><td>利用下属意见但未组织起来（如国际营销）</td></tr>
+      <tr><td><strong>共识式</strong></td><td>低</td><td>高</td><td>从分享信息发展而成的群体决策（如办公室分配）</td></tr>
+      <tr><td><strong>群体理性</strong></td><td>高</td><td>高</td><td>5-8人，全程投入，背景不一致，充分表达</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-danger">
+    <span class="icon">🚨</span>
+    <div><strong>群体决策不是最好的决策</strong>，它是折中的、风险较小的选择。企业越大，控制风险越重要，越要群体决策。企业大后管理者越要谦虚，而非越自信。</div>
+  </div>
+
+  <h3>决策中的个人局限性</h3>
+  <ul>
+    <li><strong>首因效应</strong>：第一印象决定判断，根深蒂固</li>
+    <li><strong>晕轮效应</strong>：以面概点，被外在东西蒙蔽</li>
+    <li><strong>新近效应</strong>：最新最近的事情起决定作用（考核时尤其明显）</li>
+    <li><strong>角色固着</strong>：身份/角色标签影响认知</li>
+  </ul>
+</section>
+
+<!-- CH7: 计划 -->
+<section id="ch7">
+  <h2><span class="icon">📝</span> 第7章 · 什么是计划</h2>
+  <div class="lead">计划就是为实现目标而寻找资源的一系列行动。目标是对未来的预测（一定不合理），行动必须合理。</div>
+
+  <h3>计划的两个根本特性</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>① 目标一定不合理</h4>
+      <p>因为目标是对未来的预测，预测无法合理。对于目标，不是探讨合理性，而是探讨<strong>必要性</strong>。不要和上司探讨目标的合理性。</p>
+    </div>
+    <div class="card">
+      <h4>② 行动必须合理</h4>
+      <p>计划的真实含义是确保行动合理，能找到资源实现不合理目标。与上司探讨的是<strong>资源</strong>的问题。没有行动的计划无效，没有计划的行动致命。</p>
+    </div>
+  </div>
+
+  <h3>计划管理推动企业发展的三对矛盾</h3>
+  <table>
+    <thead><tr><th>管理层级</th><th>负责的目标</th><th>解决的矛盾</th></tr></thead>
+    <tbody>
+      <tr class="highlight"><td><strong>高层管理者</strong></td><td>策略性目标：长期发展、投资回报、市场占有率</td><td>对<strong>长期和变化</strong>负责</td></tr>
+      <tr><td><strong>中层管理者</strong></td><td>功能性目标：中期发展、生产力、人力资源</td><td>对<strong>稳定和效率</strong>负责</td></tr>
+      <tr><td><strong>基层管理者</strong></td><td>操作性目标：短期发展、销售定额、成本控制、质量标准</td><td>对<strong>短期和效益</strong>负责</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-danger">
+    <span class="icon">🚨</span>
+    <div><strong>中国管理的最大错误：</strong>高层管理者负担所有责任（成本、质量、人才、效率），做中基层的事。结果：高管高待遇但无战略贡献，中基层无成就感。末位淘汰应用在基层反而伤害质量和成本。</div>
+  </div>
+
+  <h3>制订计划的关键</h3>
+  <blockquote>
+    <p>理想状态和现实之间的差距，就是确定行动合理的出发点。只要行动可以缩小和消除这个差距，行动就是合理的。</p>
+    <cite>—— 案例：日本儿童用品用动画片策略，3年进入中国市场前10</cite>
+  </blockquote>
+
+  <h3>保证计划有效性的三个因素</h3>
+  <ol>
+    <li><strong>管理人员对计划的态度</strong>：正式、隆重地签订目标责任书</li>
+    <li><strong>不要用原来的方法解决问题</strong>：环境改变时沿用旧方法必然失效</li>
+    <li><strong>上司的支持</strong>：计划需要资源，只有上司能解决资源分配</li>
+  </ol>
+
+  <h3>目标管理</h3>
+  <p><strong>自上而下层层分解目标，自下而上层层保证措施。</strong>核心是实现目标的措施具体化，而非目标分解具体化。目标设定后要有目标沟通，花更多时间讨论实现目标的措施。</p>
+
+  <div class="callout callout-info">
+    <span class="icon">💡</span>
+    <div><strong>"计划没有变化快"的真相：</strong>不是计划无法适应变化，而是计划没有涵盖变化。好的计划一定可以包含变化。途径：先调整规定→再调整程序→政策不变。</div>
+  </div>
+</section>
+
+<!-- CH8: 控制 -->
+<section id="ch8">
+  <h2><span class="icon">🎛️</span> 第8章 · 什么是控制</h2>
+  <div class="lead">控制是保障达成绩效的核心职能。控制是针对目标的管理行为，而非针对人的管理行为。</div>
+
+  <h3>控制的四步过程</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>① 立标</h4>
+      <p>建立具有挑战性又合理的绩效（工作）目标</p>
+    </div>
+    <div class="card">
+      <h4>② 监察</h4>
+      <p>测量、收集、存储、反馈有关个人/组织活动的资料</p>
+    </div>
+    <div class="card">
+      <h4>③ 核对</h4>
+      <p>将实际活动/结果与预先计划的活动/结果相比较</p>
+    </div>
+    <div class="card">
+      <h4>④ 修正</h4>
+      <p>按照原计划，修正偏差的活动</p>
+    </div>
+  </div>
+
+  <h3>控制的三个要件</h3>
+  <table>
+    <thead><tr><th>要件</th><th>说明</th><th>常见错误</th></tr></thead>
+    <tbody>
+      <tr class="highlight"><td><strong>标准化</strong></td><td>控制需要表现为一系列标准，否则无法衡量和核对</td><td>有制度无标准</td></tr>
+      <tr><td><strong>量化</strong></td><td>量化的标准才能被实施、检验和衡量</td><td>经验主义盛行，依赖人的判断</td></tr>
+      <tr><td><strong>全过程化</strong></td><td>控制需贯穿管理活动的全过程</td><td>遇到困难或时间加长就忘了预设目标</td></tr>
+    </tbody>
+  </table>
+
+  <h3>有效控制的四个习惯改变</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <h4>① 思维习惯</h4>
+      <p>预算起点是战略目标，不是历史数据、不是市场行情、不是去年结果。"预则立"。</p>
+    </div>
+    <div class="card">
+      <h4>② 行为习惯</h4>
+      <p>不跟自己过去比，跟行业竞争力比。找实际数据与目标的关联。资源放在产生价值的地方。</p>
+    </div>
+    <div class="card">
+      <h4>③ 评价习惯</h4>
+      <p>不只用财务指标/KPI做评价，用目标达成、计划达成做评价。关注过程要素。</p>
+    </div>
+    <div class="card">
+      <h4>④ 对话习惯</h4>
+      <p>组织上下养成同一个对话体系，用共同标准对话，形成共识。</p>
+    </div>
+  </div>
+
+  <h3>控制的负面反应与防止</h3>
+  <p>不适当的控制会导致六种负面反应：认为标准是"压力工具"、本位主义、过分重视短期、过分强调易测量因素、隐蔽信息、躲避抵触控制。</p>
+  <p>防止方法：设立有效标准、控制程度适合任务、参与式设立标准、避免不完善标准、不过分依赖控制报告、及时回馈、使用例外管理。</p>
+
+  <div class="callout">
+    <span class="icon">📌</span>
+    <div><strong>结语：员工的绩效由管理者决定。</strong>向下负责 = 提供平台 + 对结果负责 + 对成长负责。发展下属四要素：清楚方向感与目标 → 鼓舞追求更高绩效 → 支持成长与成功 → 建立合作关系。</div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion" class="conclusion">
+  <h2>📊 全书核心总结</h2>
+  <p>陈春花用 8 个基本概念，把管理的本质还原为常识。以下是全书最精华的 12 条管理定律：</p>
+  <ol>
+    <li><strong>管理是"管事"而非"管人"</strong>——界定该做的事和标准，而非靠人的自觉</li>
+    <li><strong>管理只对绩效负责</strong>——功劳产生绩效，苦劳不产生；能力产生绩效，态度须转化为能力</li>
+    <li><strong>公司不是一个家</strong>——正式组织用权力、责任、目标联结，非情感</li>
+    <li><strong>组织结构解决权责匹配</strong>——承担责任的人必须拥有相应权力</li>
+    <li><strong>领导是职能而非职位</strong>——影响力 = 权力 + 魅力，任何人只要有影响力都能领导</li>
+    <li><strong>涨工资不带来满足感</strong>——工资是保健因素，降低不满但不产生满足感</li>
+    <li><strong>金钱非常重要</strong>——因重要性和可见度都足够，是最重要的激励措施</li>
+    <li><strong>决策为执行而非正确</strong>——执行者从识别问题开始就要参与全过程</li>
+    <li><strong>目标一定不合理</strong>——目标是对未来的预测，探讨必要性而非合理性</li>
+    <li><strong>计划管理是管理的基础</strong>——解决目标与资源匹配，协调长短期、变化与稳定、效率与效益</li>
+    <li><strong>控制针对目标而非人</strong>——标准化 + 量化 + 全过程化</li>
+    <li><strong>员工的绩效由管理者决定</strong>——向下负责，发挥下属长处，避免短处</li>
+  </ol>
+  <blockquote style="border-left-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.1);">
+    <p>管理就是把理论变为常识的过程。</p>
+    <cite style="color: rgba(255,255,255,0.7);">—— 陈春花</cite>
+  </blockquote>
+</section>
+
+<footer>
+  🌸 由小茉整理 · 2026-05-26 · 《管理的常识》陈春花 著 · 机械工业出版社
+</footer>
+
+</div>
+
+<!-- FAB TOC -->
+<button class="fab-toc" id="fabToc" onclick="toggleToc()">📑</button>
+<div class="toc-panel" id="tocPanel"></div>
+
+<script>
+// Nav scroll shadow
+const nav = document.getElementById('topNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+
+// Auto-build TOC from DOM
+(function(){
+  const panel = document.getElementById('tocPanel');
+  const sections = document.querySelectorAll('section');
+  let html = '<h4>📑 目录</h4>';
+  sections.forEach(sec => {
+    const h2 = sec.querySelector('h2');
+    if (!h2) return;
+    const id = sec.id;
+    const title = h2.textContent.replace(/^[\s\S]*?·\s*/, '');
+    html += `<a class="sec" href="#${id}">${title}</a>`;
+    sec.querySelectorAll('h3').forEach(h3 => {
+      const subId = 'toc-' + Math.random().toString(36).substr(2,6);
+      h3.id = subId;
+      html += `<a class="sub" href="#${subId}">${h3.textContent}</a>`;
+    });
+  });
+  panel.innerHTML = html;
+})();
+
+function toggleToc() {
+  const panel = document.getElementById('tocPanel');
+  const fab = document.getElementById('fabToc');
+  panel.classList.toggle('show');
+  fab.classList.toggle('active');
+  fab.textContent = panel.classList.contains('show') ? '✕ 目录' : '📑';
+}
+
+// Close TOC on link click
+document.getElementById('tocPanel').addEventListener('click', e => {
+  if (e.target.tagName === 'A') {
+    document.getElementById('tocPanel').classList.remove('show');
+    document.getElementById('fabToc').classList.remove('active');
+    document.getElementById('fabToc').textContent = '📑';
+  }
+});
+</script>
+
+</body>
+</html>

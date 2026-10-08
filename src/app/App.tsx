@@ -3,14 +3,17 @@ import { reportData } from '../content/report.data'
 import { AnnualTrajectorySection } from '../sections/AnnualTrajectorySection'
 import { SupplyChainTopicsSection } from '../sections/SupplyChainTopicsSection'
 import { AgentTeamSection } from '../sections/AgentTeamSection'
-import { CaseStudySection } from '../sections/CaseStudySection'
-import { ContextSection } from '../sections/ContextSection'
+import { AiNativeGrowthSection } from '../sections/AiNativeGrowthSection'
+import { AiNativeWorkspaceSection } from '../sections/AiNativeWorkspaceSection'
+import { OrganizationEnablementSection } from '../sections/OrganizationEnablementSection'
+import { ApProjectsSection } from '../sections/ApProjectsSection'
+import { SailoomReflectionSection } from '../sections/SailoomReflectionSection'
+import { DemandForecastSection } from '../sections/DemandForecastSection'
+import { FrontierExplorationSection } from '../sections/FrontierExplorationSection'
+import { ReflectionSection } from '../sections/ReflectionSection'
+import { InternalFdeSection } from '../sections/InternalFdeSection'
 import { CoverSection } from '../sections/CoverSection'
-import { ExecutiveSummarySection } from '../sections/ExecutiveSummarySection'
-import { ImpactSection } from '../sections/ImpactSection'
-import { NextAgendaSection } from '../sections/NextAgendaSection'
-import { ProgressSection } from '../sections/ProgressSection'
 
 export function App() {
-  return <><StickyHeader title={reportData.meta.title} year={reportData.meta.year} /><main className="report-shell"><CoverSection /><AnnualTrajectorySection /><SupplyChainTopicsSection /><AgentTeamSection /><ExecutiveSummarySection /><ContextSection /><ProgressSection /><ImpactSection /><CaseStudySection /><NextAgendaSection /></main></>
+  return <><StickyHeader title={reportData.meta.title} year={reportData.meta.year} /><main className="report-shell"><CoverSection /><AnnualTrajectorySection /><SupplyChainTopicsSection /><AgentTeamSection /><AiNativeGrowthSection /><AiNativeWorkspaceSection /><OrganizationEnablementSection /><ApProjectsSection /><SailoomReflectionSection /><DemandForecastSection /><FrontierExplorationSection /><ReflectionSection /><InternalFdeSection /></main></>
 }

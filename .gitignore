@@ -1,6 +1,7 @@
 node_modules/
 dist/
 *.tsbuildinfo
+*:Zone.Identifier
 .env
 .env.*
 !.env.example
