@@ -61,20 +61,6 @@ function TerminalTyping() {
   return <div ref={ref} className="operations-terminal" aria-label="Linux 环境与 Agent 运维命令演示"><div className="terminal-bar"><span /><span /><span /><b>WSL2 · Agent Operations</b></div><div className="terminal-body"><p className="terminal-command">{typed}<i aria-hidden="true" /></p>{showOutput && <p className="terminal-output">{output}</p>}</div></div>
 }
 
-function KnowledgeGraph() {
-  const outerNodes = [
-    [145, 130, 6], [290, 72, 5], [465, 95, 7], [655, 145, 5], [810, 105, 6],
-    [875, 275, 5], [805, 435, 7], [640, 505, 5], [455, 530, 6], [275, 495, 5],
-    [120, 405, 7], [95, 250, 5], [270, 235, 4], [690, 260, 4], [715, 365, 4],
-    [325, 395, 4], [525, 160, 4], [510, 465, 4],
-  ]
-  const links = [[0, 12], [12, 16], [16, 2], [2, 13], [13, 3], [3, 14], [14, 6], [6, 7], [7, 17], [17, 8], [8, 9], [9, 15], [15, 10], [10, 11], [11, 0], [1, 12], [4, 13], [5, 14], [15, 17]]
-
-  return <svg className="knowledge-graph" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" aria-label="无文字的 Obsidian 知识关系图谱动画">
-    <g className="graph-network">{outerNodes.map(([x, y], index) => <line key={`core-${index}`} x1="500" y1="300" x2={x} y2={y} />)}{links.map(([from, to], index) => <line key={`link-${index}`} x1={outerNodes[from][0]} y1={outerNodes[from][1]} x2={outerNodes[to][0]} y2={outerNodes[to][1]} className="graph-link" />)}{outerNodes.map(([x, y, size], index) => <circle key={`node-${index}`} cx={x} cy={y} r={size} className={index % 6 === 0 ? 'is-accent' : undefined} />)}<circle className="graph-core" cx="500" cy="300" r="16" /></g>
-  </svg>
-}
-
 export function AiNativeGrowthSection() {
   const { ref, isVisible } = useRevealOnView<HTMLElement>()
 
@@ -106,12 +92,12 @@ export function AiNativeGrowthSection() {
     </article>
 
     <article className="ai-growth-scene ai-growth-scene--knowledge ai-growth-reveal ai-growth-reveal--scene">
-      <div className="ai-growth-copy"><p className="scene-index">05 / PERSONAL KNOWLEDGE BASE</p><h3>开始用 Obsidian 管理知识，让阅读、项目与经验逐步连接起来。</h3><p>当前知识库放在 OneDrive 中，多端可用；即使回家后，也能继续查阅和整理。重要文件还没有全部迁入，后续会逐步把项目文档、阅读材料和关键经验迁移进去。</p><p>知识库的意义不只在于存放文件，而在于让分散的笔记、项目、判断和复盘开始形成可追溯的关系。</p></div>
-      <div className="knowledge-graph-frame"><KnowledgeGraph /></div>
+      <div className="ai-growth-copy"><p className="scene-index">05 / PERSONAL KNOWLEDGE BASE</p><h3>用 Obsidian 管理个人知识</h3><p>当前知识库放在 OneDrive 中，多端可用；即使回家后，也能继续查阅和整理。重要文件还没有全部迁入，后续会逐步把项目文档、阅读材料和关键经验迁移进去。</p><p>知识库的意义不只在于存放文件，而在于让分散的笔记、项目、判断和复盘开始形成可追溯的关系。</p></div>
+      <figure className="knowledge-graph-frame"><img src={asset('obsidian.jpeg')} alt="Obsidian 个人知识库关系图谱截图" /></figure>
     </article>
 
     <article className="ai-growth-operations ai-growth-reveal ai-growth-reveal--scene">
-      <div className="ai-growth-operations-heading"><p className="scene-index">06 / OPERATING THE ENVIRONMENT</p><h3>从使用工具，到能够维护工作环境</h3></div>
+      <div className="ai-growth-operations-heading"><p className="scene-index">06 / OPERATING THE ENVIRONMENT</p><h3>从使用工具，到能维护工具</h3></div>
       <div className="ai-growth-operation-grid"><div><span>01</span><h4>理解配置与终端</h4><p>逐步看懂 OpenClaw 配置文件，开始使用简单终端工具；从“会点开一个工具”进入“知道它如何被配置和运行”。</p></div><div><span>02</span><h4>迁移到 WSL2</h4><p>将 OpenClaw 从 Windows 迁移到 WSL2，开始学习 Linux 的文件、命令、环境与运行方式，让工具能力不再完全依赖图形界面。</p></div><div><span>03</span><h4>能力长在部门上</h4><p>承担 Hard 端绝大多数人的龙虾运维。现在已有一批业务同事具备完整 Agent 运维能力；但在半年前，这仍是一种相对稀少的能力。</p></div></div>
       <TerminalTyping />
     </article>
