@@ -9,6 +9,14 @@
   --brand: #E94709;
   --brand-deep: #9F3007;
   --brand-wash: #F4DDD3;
+  --wash-apricot: #F4E9DE;
+  --wash-sage: #E6EDE6;
+  --wash-mist: #E8ECEE;
+  --paper-surface: #FBF8F1;
+  --paper-edge: rgba(96, 75, 49, .16);
+  --paper-shadow: rgba(91, 68, 41, .13);
+  --ambient-gradient-intensity: 1;
+  --ambient-gradient-cycle-height: 112rem;
   --max-width: 1680px;
   --gutter: clamp(1rem, 2.5vw, 3rem);
   --font-display: "Noto Serif SC", "Songti SC", "STSong", serif;

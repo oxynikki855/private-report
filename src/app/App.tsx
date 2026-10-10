@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { StickyHeader } from '../components/layout/StickyHeader'
+import { ReadingConsole } from '../components/layout/ReadingConsole'
 import { reportData } from '../content/report.data'
 import { AnnualTrajectorySection } from '../sections/AnnualTrajectorySection'
 import { SupplyChainTopicsSection } from '../sections/SupplyChainTopicsSection'
@@ -15,5 +17,9 @@ import { InternalFdeSection } from '../sections/InternalFdeSection'
 import { CoverSection } from '../sections/CoverSection'
 
 export function App() {
-  return <><StickyHeader title={reportData.meta.title} year={reportData.meta.year} /><main className="report-shell"><CoverSection /><AnnualTrajectorySection /><SupplyChainTopicsSection /><AgentTeamSection /><AiNativeGrowthSection /><AiNativeWorkspaceSection /><OrganizationEnablementSection /><ApProjectsSection /><SailoomReflectionSection /><DemandForecastSection /><FrontierExplorationSection /><ReflectionSection /><InternalFdeSection /></main></>
+  const [ambientIntensity, setAmbientIntensity] = useState(1)
+
+  useEffect(() => { document.documentElement.style.setProperty('--ambient-gradient-intensity', String(ambientIntensity)) }, [ambientIntensity])
+
+  return <><StickyHeader title={reportData.meta.title} year={reportData.meta.year} /><main className="report-shell"><CoverSection /><AnnualTrajectorySection /><SupplyChainTopicsSection /><AgentTeamSection /><AiNativeGrowthSection /><AiNativeWorkspaceSection /><OrganizationEnablementSection /><ApProjectsSection /><SailoomReflectionSection /><DemandForecastSection /><FrontierExplorationSection /><ReflectionSection /><InternalFdeSection /></main><ReadingConsole onIntensityChange={setAmbientIntensity} /></>
 }

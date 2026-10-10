@@ -7,7 +7,12 @@ html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
 body {
   min-width: 320px;
   margin: 0;
-  background: var(--paper);
+  background-color: var(--paper-surface);
+  background-image: linear-gradient(to bottom,rgb(247 244 238 / calc(.72 * var(--ambient-gradient-intensity))) 0%,rgb(244 224 205 / calc(.88 * var(--ambient-gradient-intensity))) 14%,rgb(247 244 238 / calc(.72 * var(--ambient-gradient-intensity))) 28%,rgb(220 233 224 / calc(.86 * var(--ambient-gradient-intensity))) 43%,rgb(247 244 238 / calc(.72 * var(--ambient-gradient-intensity))) 57%,rgb(220 229 235 / calc(.88 * var(--ambient-gradient-intensity))) 72%,rgb(247 244 238 / calc(.72 * var(--ambient-gradient-intensity))) 86%,rgb(247 244 238 / calc(.72 * var(--ambient-gradient-intensity))) 100%);
+  background-position: center top;
+  background-size: 100% var(--ambient-gradient-cycle-height);
+  background-repeat: repeat-y;
+  background-attachment: scroll;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
