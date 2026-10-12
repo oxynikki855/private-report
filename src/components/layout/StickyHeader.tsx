@@ -4,6 +4,8 @@ import { useReadingProgress } from '../../hooks/useReadingProgress'
 
 type HeaderProps = { title: string; year: string }
 
+const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`
+
 export function StickyHeader({ title, year }: HeaderProps) {
   const activeId = useActiveSection(reportSections.map((section) => section.id))
   const progress = useReadingProgress()
@@ -11,7 +13,7 @@ export function StickyHeader({ title, year }: HeaderProps) {
 
   return <>
     <header className="report-header">
-      <img src="/assets/brand/sailvan-logo.png" alt="赛维时代 Sailvan Times" />
+      <img src={asset('brand/sailvan-logo.png')} alt="赛维时代 Sailvan Times" />
       <p>{title} · {year}</p>
       <p>{active?.label ?? '年度轨迹'}</p>
     </header>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRevealOnView } from '../hooks/useRevealOnView'
 
-const asset = (name: string) => `/assets/${encodeURIComponent(name)}`
+const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${encodeURIComponent(name)}`
 
 type ProjectId = 'ap01' | 'ap02' | 'ap03' | 'ap04' | 'ap06' | 'ap10' | 'ap05-ap09'
 type MediaSlide = { kind: 'video'; src: string; title: string } | { kind: 'image'; src: string; title: string; alt: string }

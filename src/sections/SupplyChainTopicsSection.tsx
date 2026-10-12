@@ -7,6 +7,8 @@ type ForecastMethod = { id: string; label: string; formula: string[]; title: str
 
 type WarehouseSlide = { kicker: string; title: string; lead: string; content: ReactNode }
 
+const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${encodeURIComponent(name)}`
+
 const forecastSymbols: Record<string, string[]> = {
   decomposition: ['Dₜ：第 t 期实际需求', 'Lₜ：基础需求水平', 'Tₜ：趋势成分', 'Sₜ：季节性成分'],
   'moving-average': ['yₜ：第 t 期预测值', 'Dᵢ：第 i 期实际需求', 'N：纳入平均的历史期数', 'wᵢ：第 i 期的权重'],
@@ -57,7 +59,7 @@ const warehouseSlides: WarehouseSlide[] = [
     kicker: '03 / TOOL PROTOTYPE',
     title: '确定性测算 + AI 参与解释和辅助判断',
     lead: '在可控的五区区域级抽象下，将可复算的成本比较与 AI 决策辅助分开处理。',
-    content: <div className="warehouse-tool-page"><div className="tool-responsibilities"><div><span>CODE / ENGINE</span><h4>确定性引擎</h4><p>枚举区域组合、匹配费率、合计成本、保留参数版本；同一输入必须得到同一输出。</p></div><div><span>AI / COPILOT</span><h4>解释与辅助</h4><p>解释成本差异、识别临界选择、整理非标准输入、生成核验清单；不虚构费率，不替代计算。</p></div><div><span>HUMAN / REVIEW</span><h4>确认边界</h4><p>确认数据口径、服务要求、业务偏好与最终采用方案。工具给出带条件的比较，人工承担判断。</p></div></div><figure className="warehouse-tool-shot"><img src="/assets/分仓策略工具.jpeg" alt="SKU 长期分仓策略工具界面截图" /></figure></div>,
+    content: <div className="warehouse-tool-page"><div className="tool-responsibilities"><div><span>CODE / ENGINE</span><h4>确定性引擎</h4><p>枚举区域组合、匹配费率、合计成本、保留参数版本；同一输入必须得到同一输出。</p></div><div><span>AI / COPILOT</span><h4>解释与辅助</h4><p>解释成本差异、识别临界选择、整理非标准输入、生成核验清单；不虚构费率，不替代计算。</p></div><div><span>HUMAN / REVIEW</span><h4>确认边界</h4><p>确认数据口径、服务要求、业务偏好与最终采用方案。工具给出带条件的比较，人工承担判断。</p></div></div><figure className="warehouse-tool-shot"><img src={asset('分仓策略工具.jpeg')} alt="SKU 长期分仓策略工具界面截图" /></figure></div>,
   },
 ]
 

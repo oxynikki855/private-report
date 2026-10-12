@@ -21,12 +21,15 @@ const fastLayerInputs = [
   ['外部环境冲击', '天气预警、关税/政治、黑天鹅类低频事件。', '由 Agent 监控、组织证据和解释影响；不将没有历史先例的冲击硬塞进历史权重。'],
 ]
 
+const localDemosAvailable = import.meta.env.BASE_URL === '/'
+
 export function DemandForecastSection() {
   const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.forecast-reveal' })
   const [forecastLaunchState, setForecastLaunchState] = useState<'idle' | 'launching' | 'ready' | 'error'>('idle')
   const [worldLaunchState, setWorldLaunchState] = useState<'idle' | 'launching' | 'ready' | 'error'>('idle')
 
   const launchDemo = async (target: 'forecast' | 'worldmonitor') => {
+    if (!localDemosAvailable) return
     const setState = target === 'forecast' ? setForecastLaunchState : setWorldLaunchState
     setState('launching')
     try {
@@ -43,7 +46,7 @@ export function DemandForecastSection() {
   return <section ref={ref} id="demand-forecast" className={`forecast-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="forecast-hero forecast-reveal forecast-reveal--hero"><p className="eyebrow">Forecasting project / 09</p><h2>需求预测：<br />历史规律和突发事件结合</h2><p>需求预测项目连接分仓、库存与采购决策。当前从 US 市场两个 SPU 试点开始：AMB005585、AM002971。</p></header>
 
-    <div className="forecast-command forecast-reveal forecast-reveal--command"><div><p className="scene-index">DEMO / LOCAL SERVICES</p><h3>把预测规律与外部事件放在同一套判断框架中查看</h3><p>AP02 演示展示慢层/快层因子如何进入预测系统；WorldMonitor 用于观察外部环境、物流、政策与突发事件等快层信号。</p></div><div className="forecast-launch-group"><div><button type="button" className="forecast-launch" onClick={() => launchDemo('forecast')} disabled={forecastLaunchState === 'launching'}>{forecastLaunchState === 'launching' ? '正在启动 AP02…' : '▶ 打开 AP02 预测演示'}</button>{forecastLaunchState === 'ready' && <p className="forecast-launch-status">AP02 演示已打开</p>}{forecastLaunchState === 'error' && <p className="forecast-launch-status is-error">AP02 服务启动失败</p>}</div><div><button type="button" className="forecast-launch forecast-launch--secondary" onClick={() => launchDemo('worldmonitor')} disabled={worldLaunchState === 'launching'}>{worldLaunchState === 'launching' ? '正在启动 WorldMonitor…' : '▶ 打开 WorldMonitor'}</button>{worldLaunchState === 'ready' && <p className="forecast-launch-status">WorldMonitor 已打开</p>}{worldLaunchState === 'error' && <p className="forecast-launch-status is-error">WorldMonitor 服务启动失败</p>}</div></div></div>
+    <div className="forecast-command forecast-reveal forecast-reveal--command"><div><p className="scene-index">DEMO / LOCAL SERVICES</p><h3>把预测规律与外部事件放在同一套判断框架中查看</h3><p>AP02 演示展示慢层/快层因子如何进入预测系统；WorldMonitor 用于观察外部环境、物流、政策与突发事件等快层信号。</p></div><div className="forecast-launch-group">{localDemosAvailable ? <><div><button type="button" className="forecast-launch" onClick={() => launchDemo('forecast')} disabled={forecastLaunchState === 'launching'}>{forecastLaunchState === 'launching' ? '正在启动 AP02…' : '▶ 打开 AP02 预测演示'}</button>{forecastLaunchState === 'ready' && <p className="forecast-launch-status">AP02 演示已打开</p>}{forecastLaunchState === 'error' && <p className="forecast-launch-status is-error">AP02 服务启动失败</p>}</div><div><button type="button" className="forecast-launch forecast-launch--secondary" onClick={() => launchDemo('worldmonitor')} disabled={worldLaunchState === 'launching'}>{worldLaunchState === 'launching' ? '正在启动 WorldMonitor…' : '▶ 打开 WorldMonitor'}</button>{worldLaunchState === 'ready' && <p className="forecast-launch-status">WorldMonitor 已打开</p>}{worldLaunchState === 'error' && <p className="forecast-launch-status is-error">WorldMonitor 服务启动失败</p>}</div></> : <p className="forecast-launch-status">预测演示与 WorldMonitor 仅在作者本机汇报环境中提供。</p>}</div></div>
 
     <article className="forecast-principles forecast-reveal forecast-reveal--section"><p className="scene-index">01 / MODEL DISCIPLINE</p><h3>先让每一个模型结论经得起时间和数据口径的检验</h3><div className="forecast-principle-grid">{principles.map(([title, text], index) => <div key={title}><span>{String(index + 1).padStart(2, '0')}</span><h4>{title}</h4><p>{text}</p></div>)}</div></article>
 

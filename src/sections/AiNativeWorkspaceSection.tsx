@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRevealOnView } from '../hooks/useRevealOnView'
 
-const asset = (name: string) => `/assets/${encodeURIComponent(name)}`
+const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${encodeURIComponent(name)}`
 
 type WorkspaceScene = { id: string; image: string; alt: string; statement: string }
 
