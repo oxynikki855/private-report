@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一年，换一种工作方式</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f4f3;color:#282d2b;font-family:'Noto Sans SC',sans-serif;height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center}canvas{display:block;width:min(100vw,calc((100dvh - 76px)*16/9));height:auto;aspect-ratio:16/9;background:white}nav{height:64px;display:flex;align-items:center;gap:18px;width:min(90vw,1000px)}button,a{color:inherit;background:none;border:0;font-size:22px;cursor:pointer;text-decoration:none}input{flex:1;accent-color:#dc604c;min-width:40px}time{font-size:13px;white-space:nowrap}.export nav{display:none}.export{background:white}.export canvas{width:100vw;height:100vh}
+</style>
+<canvas id="film" width="1920" height="1080" aria-label="年度成长短片"></canvas>
+<nav><button id="play" title="播放或暂停" aria-label="播放或暂停">▶</button><input id="scrub" type="range" min="0" max="56" value="0" step="0.01" aria-label="视频进度"><time id="clock">00:00 / 00:56</time><button id="sound" title="音乐开关" aria-label="音乐开关">♫</button><a href="out/growth-film.mp4" download title="下载 MP4" aria-label="下载 MP4">↓</a></nav>
+<audio id="music" src="out/music.wav" preload="none"></audio>
+<script>
+const c=document.getElementById('film'),ctx=c.getContext('2d'),W=1920,H=1080;
+const ink='#282d2b',muted='#7a817c',red='#dc604c',blue='#518a9b',green='#6b927c';
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),ease=x=>1-Math.pow(1-clamp(x),3);
+const images={};
+const shots=[
+ {start:0,end:6,title:'一年，换一种工作方式。',sub:'从个人探索，走向真实业务。',image:'voice',tag:'2025.10 — 2026.09 / 成长手记'},
+ {start:6,end:13,title:'先学会，把问题看清。',sub:'从解决一个功能，到理解一个问题。',tag:'01 / 走进业务'},
+ {start:13,end:21,title:'一个个小痛点，长成工作环境。',sub:'让知识可检索，让经验可复用，让协作有记忆。',image:'voice',tag:'02 / 改变自己'},
+ {start:21,end:29,title:'我的提效，开始走向我们。',sub:'先修好数据管道，再让 AI 参与判断。',image:'pipe',tag:'03 / 连接团队'},
+ {start:29,end:37,title:'把能力，做成用得起来的东西。',sub:'复杂留在系统里，轻盈留给使用的人。',image:'entrance',tag:'04 / 从工具到产品'},
+ {start:37,end:41,title:'学得越慢，学得越快。',sub:'怎样找到可持续的学习节奏？',reflection:0,tag:'05 / 仍在思考'},
+ {start:41,end:45,title:'懂得越多，懂得越少。',sub:'怎样从很多可能，走到一个可用的起点？',reflection:1,tag:'05 / 仍在思考'},
+ {start:45,end:49,title:'做得越好，做得越差。',sub:'怎样给 AI 空间，也保留自己的判断？',reflection:2,tag:'05 / 仍在思考'},
+ {start:49,end:56,title:'下一步，继续走进真实现场。',sub:'连接业务、AI 与 IT，让真实问题被稳定改善。',image:'team',tag:'06 / 继续生长'}
+];
+function text(s,x,y,size=56,color=ink,weight=400,align='left'){ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Noto Sans SC", "Microsoft YaHei", sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y)}
+function line(points,color=ink,width=3,progress=1){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();const count=Math.max(1,Math.floor((points.length-1)*clamp(progress)));ctx.moveTo(...points[0]);for(let i=1;i<=count;i++)ctx.lineTo(...points[i]);ctx.stroke()}
+function curve(t,reflection=false){const p=[];for(let i=0;i<180;i++){const x=100+i*9.6;const y=reflection?775+Math.sin(i*.045)*60:958+Math.sin(i*.036)*12;p.push([x,y])}line(p,reflection?blue:'#d8ded9',reflection?3:2,ease(t/2));}
+function label(s,x,y,t,color=muted){ctx.save();ctx.globalAlpha=ease(t);text(s,x,y+14*(1-ease(t)),26,color);ctx.restore()}
+function art(name,local){const img=images[name];ctx.save();const reveal=ease(local/1.4);ctx.beginPath();ctx.rect(110,355,1700*reveal,545);ctx.clip();const scale=1+.045*Math.sin(Math.PI*clamp(local/8)),fit=Math.min(1660/img.width,505/img.height);ctx.translate(W/2+8*Math.sin(local*.5),635);ctx.scale(scale,scale);ctx.drawImage(img,-img.width*fit/2,-img.height*fit/2,img.width*fit,img.height*fit);ctx.restore();}
+function trajectory(u){const labels=[['2025.10','业务需求'],['2025.11','问题结构'],['2025.12','预测边界'],['2026.02','AI 能力']];const pts=[];for(let i=0;i<200;i++){pts.push([220+i*7.4,650+Math.sin(i*.029)*60])}line(pts,blue,4,ease((u-.5)/2));labels.forEach((v,i)=>{const x=240+i*475,y=650+Math.sin((x-220)/7.4*.029)*60,p=ease((u-.9-i*.35)/.8);ctx.save();ctx.globalAlpha=p;ctx.fillStyle=i===3?red:blue;ctx.beginPath();ctx.arc(x,y,7*p,0,7);ctx.fill();text(v[0],x,y-62,24,muted,400,'center');text(v[1],x,y+73,36,ink,500,'center');ctx.restore()});ctx.save();ctx.globalAlpha=ease(u-2.2);text('真实需求  →  理解约束  →  谨慎验证',960,890,26,muted,400,'center');ctx.restore();}
+function thought(u,index){curve(u,true);const words=[['前沿','精力','节奏'],['方法','选择','起点'],['期待','创造','判断']][index];words.forEach((w,i)=>{const x=530+i*430,y=775+Math.sin((x-100)/9.6*.045)*60;ctx.save();ctx.globalAlpha=ease(u-.6-i*.22);ctx.fillStyle='white';ctx.fillRect(x-50,y-36,100,72);text(w,x,y+11,30,i===2?red:muted,400,'center');ctx.restore()});const p=[];for(let i=0;i<160;i++)p.push([470+i*6.1,492+Math.sin(i*.09)*1.8]);line(p,red,3,ease((u-.7)/1.1));}
+function drawShot(s,t,opacity=1){let u=t-s.start;ctx.save();ctx.globalAlpha=opacity;const arrive=ease(u/.9);ctx.translate(0,18*(1-arrive));text(s.tag,110,94,23,muted);const reflection=s.reflection!==undefined;const tx=reflection?960:110;ctx.globalAlpha*=arrive;text(s.title,tx,reflection?453:245,reflection?72:66,ink,500,reflection?'center':'left');text(s.sub,tx,reflection?571:322,32,muted,400,reflection?'center':'left');if(s.image)art(s.image,u);else if(reflection)thought(u,s.reflection);else trajectory(u);ctx.restore();
+ ctx.save();ctx.globalAlpha=opacity;if(s.start===13){label('COMM · 协作',260,931,u-1.5,blue);label('Memoria · 记忆',750,931,u-2,green);label('Obsidian · 知识',1300,931,u-2.5,red)}if(s.start===21){label('从个人面板，到共享的工作入口',110,931,u-1.7,blue)}if(s.start===29){label('提出任务',1250,931,u-1,blue);label('查看进展',1450,931,u-1.6,green);label('验收结果',1650,931,u-2.2,red)}if(s.start===49){label('下一阶段 / 销售运营 AI 落地 · 内部 FDE 的探索',110,931,u-1.6,blue)}ctx.restore();}
+window.seek=function(t){t=clamp(t,0,56);ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);let idx=shots.findIndex(s=>t<s.end);if(idx<0)idx=shots.length-1;const s=shots[idx];const u=t-s.start;const blend=clamp(u/.55);if(idx>0&&u<.55)drawShot(shots[idx-1],t,1-blend);drawShot(s,t,idx>0?blend:1);if(s.reflection===undefined)curve(8);text('一年里的尝试、改变与未完待续',110,1030,21,muted);text(String(Math.min(idx+1,9)).padStart(2,'0')+' / 09',1808,1030,21,muted,400,'right');ctx.fillStyle=red;ctx.fillRect(110,980,1700*t/56,2);return t};
+window.ready=Promise.all(['voice','pipe','entrance','team'].map(name=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{images[name]=img;resolve()};img.onerror=reject;img.src=`assets/${name}.png`}))).then(()=>document.fonts.ready).then(()=>seek(0));
+const music=document.getElementById('music'),play=document.getElementById('play'),scrub=document.getElementById('scrub');let running=false,pos=0,previous=0,mutedAudio=false;
+function refresh(){scrub.value=pos;document.getElementById('clock').textContent=`00:${String(Math.floor(pos)).padStart(2,'0')} / 00:56`;seek(pos)}
+play.onclick=async()=>{await ready;if(pos>=56)pos=0;running=!running;play.textContent=running?'Ⅱ':'▶';music.currentTime=pos;music.muted=mutedAudio;if(running)music.play().catch(()=>{});else music.pause();previous=performance.now()};scrub.oninput=()=>{pos=Number(scrub.value);music.currentTime=pos;refresh()};document.getElementById('sound').onclick=()=>{mutedAudio=!mutedAudio;music.muted=mutedAudio;document.getElementById('sound').style.opacity=mutedAudio?.4:1};function tick(now){if(running){pos=Math.min(56,pos+(now-previous)/1000);refresh();if(pos===56){running=false;play.textContent='▶';music.pause()}}previous=now;requestAnimationFrame(tick)}requestAnimationFrame(tick);
+if(new URLSearchParams(location.search).has('export'))document.body.classList.add('export');
+</script>
+</html>
