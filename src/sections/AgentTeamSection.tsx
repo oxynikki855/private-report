@@ -26,7 +26,7 @@ function AgentMark({ agent }: { agent: AgentProfile }) {
 
 export function AgentTeamSection() {
   const [selectedId, setSelectedId] = useState<AgentId | null>(null)
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.agent-team-reveal' })
   const selected = agents.find((agent) => agent.id === selectedId) ?? null
 
   return <section ref={ref} id="agent-team" className={`agent-team-section ${isVisible ? 'is-revealed' : ''} ${selected ? 'has-selection' : ''}`}>

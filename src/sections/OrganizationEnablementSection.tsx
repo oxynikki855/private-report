@@ -3,7 +3,7 @@ import { useRevealOnView } from '../hooks/useRevealOnView'
 const asset = (name: string) => `/assets/${encodeURIComponent(name)}`
 
 export function OrganizationEnablementSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.org-enable-reveal' })
 
   return <section ref={ref} id="organization-enablement" className={`org-enable-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="org-enable-hero org-enable-reveal org-enable-reveal--hero"><p className="eyebrow">Organization enablement / 06</p><h2><span>个人提效到<span className="org-enable-emphasis">组织提效</span></span><span>向业务辐射和赋能</span></h2><p>个人工作面板的经验，只有被迁移到可共享的数据、规则、权限和工作入口中，才有机会成为组织真正能够使用的能力。</p></header>

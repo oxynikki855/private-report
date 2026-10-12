@@ -79,7 +79,7 @@ function WarehouseDeck() {
 
 export function SupplyChainTopicsSection() {
   const [tab, setTab] = useState<TopicTab>('warehouse')
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.supply-reveal' })
 
   return <section ref={ref} id="supply-chain-topics" className={`supply-section ${isVisible ? 'is-revealed' : ''}`}>
     <div className="supply-heading supply-reveal supply-reveal--heading"><div><p className="eyebrow">Supply chain exploration / 02</p><h2>供应链重点专题问题初探索</h2></div><p>2026春节前</p></div>

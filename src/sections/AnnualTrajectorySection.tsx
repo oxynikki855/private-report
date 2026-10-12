@@ -23,7 +23,7 @@ const items: TimelineItem[] = [
 
 export function AnnualTrajectorySection() {
   const [selected, setSelected] = useState<TimelineItem | null>(null)
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.trajectory-reveal' })
   const active = selected ?? focus
   const resetFocus = () => setSelected(null)
 

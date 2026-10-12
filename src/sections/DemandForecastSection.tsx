@@ -22,7 +22,7 @@ const fastLayerInputs = [
 ]
 
 export function DemandForecastSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.forecast-reveal' })
   const [forecastLaunchState, setForecastLaunchState] = useState<'idle' | 'launching' | 'ready' | 'error'>('idle')
   const [worldLaunchState, setWorldLaunchState] = useState<'idle' | 'launching' | 'ready' | 'error'>('idle')
 

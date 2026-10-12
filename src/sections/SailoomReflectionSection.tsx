@@ -3,7 +3,7 @@ import { useRevealOnView } from '../hooks/useRevealOnView'
 const asset = (name: string) => `/assets/${encodeURIComponent(name)}`
 
 export function SailoomReflectionSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.sailoom-reveal' })
 
   return <section ref={ref} id="sailoom-reflection" className={`sailoom-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="sailoom-hero sailoom-reveal sailoom-reveal--hero"><p className="eyebrow">Beyond project management / 08</p><h2>Sailoom：<br />让 Agent 工作成为可见、可验收的组织能力</h2><p>为了让AP01的流程更清晰，我进行了一次对多项目、多框架 AI 工作如何被组织、验收与复用的持续探索。</p></header>

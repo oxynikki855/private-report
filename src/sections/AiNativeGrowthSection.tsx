@@ -62,7 +62,7 @@ function TerminalTyping() {
 }
 
 export function AiNativeGrowthSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.ai-growth-reveal' })
 
   return <section ref={ref} id="ai-native-growth" className={`ai-growth-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="ai-growth-hero ai-growth-reveal ai-growth-reveal--hero">

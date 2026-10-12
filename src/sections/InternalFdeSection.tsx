@@ -9,7 +9,7 @@ const capabilityLayers = [
 const deliverySteps = ['场景进入', '业务诊断', '方案共创', '最小验证', '生产化与采用', '效果复盘', '能力沉淀与扩展']
 
 export function InternalFdeSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.fde-reveal' })
 
   return <section ref={ref} id="internal-fde" className={`fde-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="fde-hero fde-reveal fde-reveal--hero"><p className="eyebrow">Future planning / 12</p><h2>后续的可能方向：<br />内部 FDE 团队</h2><p>FDE（Forward Deployed Engineer）更熟悉业务现场，也理解 AI 和技术实现的边界。它的职责是连接业务、AI 与 IT，把真实问题转化为可验证、可采用、可复用的能力。</p><span>讨论稿 · 团队设计 v0.1</span></header>

@@ -35,7 +35,7 @@ export function ApProjectsSection() {
   const triggerRef = useRef<HTMLButtonElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.ap-projects-reveal' })
   const selected = projects.find((project) => project.id === selectedId) ?? projects[0]
   const media = selected.media ?? []
   const activeMedia = media[mediaIndex]

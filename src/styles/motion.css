@@ -1,24 +1,62 @@
 @media (prefers-reduced-motion: no-preference) {
-  .page-reveal {
-    opacity: 1;
-    transform: none;
+  .js-reveal-ready :is(.page-reveal, [class*="-reveal"]):not(.trajectory-node):not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(42px) scale(.985);
   }
 
-  .report-section:not(.is-revealed) .page-reveal,
-  .trajectory-section:not(.is-revealed) .trajectory-reveal { opacity: 0; transform: translateY(18px); }
+  .js-reveal-ready :is(.page-reveal, [class*="-reveal"]):not(.trajectory-node).is-revealed {
+    animation: reveal-pop .82s cubic-bezier(.18, .82, .24, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
 
-  .trajectory-section.is-revealed .trajectory-reveal { animation: page-enter .65s cubic-bezier(.2, .7, .2, 1) both; }
-  .trajectory-section.is-revealed .trajectory-reveal--heading { animation-delay: 0ms; }
-  .trajectory-section.is-revealed .trajectory-reveal--canvas { animation-delay: 120ms; }
-  .trajectory-section.is-revealed .trajectory-reveal--detail { animation-delay: 200ms; }
-  .trajectory-section.is-revealed .trajectory-reveal--node { animation-delay: var(--node-delay); }
+  .js-reveal-ready .trajectory-node:not(.is-revealed) {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 42px)) scale(.985);
+  }
 
-  @keyframes page-enter {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
+  .js-reveal-ready .trajectory-node.is-revealed {
+    animation: trajectory-node-pop .82s cubic-bezier(.18, .82, .24, 1) both;
+    animation-delay: var(--node-delay, 0ms);
+  }
+
+  .workspace-reveal--showcase,
+  .ap-projects-reveal--tabs,
+  .forecast-reveal--command,
+  .supply-reveal--tabs { --reveal-delay: 100ms; }
+
+  .ai-growth-reveal--scene,
+  .org-enable-reveal--scene,
+  .frontier-reveal--section,
+  .sailoom-reveal--scene,
+  .fde-reveal--section,
+  .trajectory-reveal--canvas { --reveal-delay: 120ms; }
+
+  .workspace-reveal--conclusion,
+  .ap-projects-reveal--panel,
+  .org-enable-reveal--image,
+  .reflection-reveal--team,
+  .supply-reveal--panel,
+  .trajectory-reveal--detail { --reveal-delay: 180ms; }
+
+  @keyframes reveal-pop {
+    0% { opacity: 0; transform: translateY(42px) scale(.985); }
+    62% { opacity: 1; transform: translateY(-3px) scale(1); }
+    82% { transform: translateY(1px) scale(1); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes trajectory-node-pop {
+    0% { opacity: 0; transform: translate(-50%, calc(-50% + 42px)) scale(.985); }
+    62% { opacity: 1; transform: translate(-50%, calc(-50% - 3px)) scale(1); }
+    82% { transform: translate(-50%, calc(-50% + 1px)) scale(1); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -18,7 +18,7 @@ const scenes: WorkspaceScene[] = [
 
 export function AiNativeWorkspaceSection() {
   const [selectedId, setSelectedId] = useState(scenes[0].id)
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.workspace-reveal' })
   const selected = scenes.find((scene) => scene.id === selectedId) ?? scenes[0]
 
   return <section ref={ref} id="ai-native-workspace" className={`workspace-section ${isVisible ? 'is-revealed' : ''}`}>

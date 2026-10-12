@@ -24,7 +24,7 @@ const reflections = [
 ]
 
 export function ReflectionSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.reflection-reveal' })
 
   return <section ref={ref} id="reflection" className={`reflection-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="reflection-hero reflection-reveal reflection-reveal--hero"><p className="eyebrow">Frontier exploration & reflection / 11</p><h2>AI 转型的矛盾与阵痛</h2></header>

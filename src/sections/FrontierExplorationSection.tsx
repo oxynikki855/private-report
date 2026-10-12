@@ -1,7 +1,7 @@
 import { useRevealOnView } from '../hooks/useRevealOnView'
 
 export function FrontierExplorationSection() {
-  const { ref, isVisible } = useRevealOnView<HTMLElement>()
+  const { ref, isVisible } = useRevealOnView<HTMLElement>({ selector: '.frontier-reveal' })
 
   return <section ref={ref} id="frontier-exploration" className={`frontier-section ${isVisible ? 'is-revealed' : ''}`}>
     <header className="frontier-hero frontier-reveal frontier-reveal--hero"><p className="eyebrow">Frontier exploration / 10</p><h2>持续关注前沿，<br />及时吸纳新能力</h2><p>保持对 Agent、模型、工作流和产品形态变化的敏感度：什么值得立刻上手，什么值得先观察，什么可能与内部业务问题产生连接。</p></header>
