@@ -8,7 +8,10 @@ type MediaSlide = { kind: 'video'; src: string; title: string } | { kind: 'image
 type Project = { id: ProjectId; label: string; image?: string; media?: MediaSlide[] }
 
 const projects: Project[] = [
-  { id: 'ap01', label: 'AP01', image: '01-ap01-agent-image-line-v2-retry.jpg' },
+  { id: 'ap01', label: 'AP01', image: '01-ap01-agent-image-line-v2-retry.jpg', media: [
+    { kind: 'image', src: 'AP01-demo.jpeg', title: 'AP01 项目演示', alt: 'AP01 设计需求助手界面' },
+    { kind: 'image', src: 'AP01-knowledge.jpeg', title: 'AP01 知识库', alt: 'AP01 设计知识库界面' },
+  ] },
   { id: 'ap02', label: 'AP02', image: '02-ap02-restart-data-bottleneck.jpg', media: [
     { kind: 'video', src: 'AP02-在途订单整体时间修改.mp4', title: '在途订单整体时间修改' },
     { kind: 'video', src: 'AP02-排柜批次修改.mp4', title: '排柜批次修改' },
